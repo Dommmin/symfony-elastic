@@ -1,0 +1,14 @@
+framework:
+    messenger:
+        failure_transport: failed
+
+        transports:
+            # Główny transport asynchroniczny
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    stream_max_entries: 1000
+                    redeliver_timeout: 3600
+
+            # Transport dla nieudanych wiadomości
+            failed: 'doctrine://default?queue_name=failed'
